@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <!-- <meta http-equiv="Access-Control-Allow-Origin" content="*"> -->
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Cryptogotchi v1 Testnet</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.0/dist/web3.min.js"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <link rel="icon" type="image/png" href="./assets/images/blobs/orange_normal.png" />
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZY3B5TW0H"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-4ZY3B5TW0H');
+        </script>
+    </head>
+    <body class="sb-nav-fixed bg-dark" id="body">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark justify-content-between">
+            <a href="/" class="rounded mr-3 ml-3" style="text-decoration: none;letter-spacing: 2px !important;">
+                <h4 style="font-family:Cyberverse;">
+                    <span style="color: #00ff00;">CRYPTO</span><span style="color: orange;">GOTCHI</span>
+                </h4>
+            </a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-lg order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div id="enableMeta">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="enableEthereumButton btn btn-sm btn-warning border border-danger mt-3" id="buttonmeta" type="button">
+                                            Load NFT Data
+                                        </button>
+                                    </div>
+                                    <input id="tokenId" type="number" class="form-control form-control-sm mt-3" placeholder="ID#" aria-label=""
+                                        aria-describedby="basic-addon1">
+                                </div>
+                                <button class="connectWithoutID btn btn-sm btn-warning border border-danger mt-3" id="buttonmeta2" type="button">
+                                    Connect without ID
+                                </button>
+                            </div>
+                            <div hidden id="load_new_data_div">
+                                <a class="nav-link" href="javascript:void(0)">
+                                    <!-- <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div> -->
+                                    <button id="load_new_data" class="btn btn-sm btn-primary">Load New ID#</button>
+                                </a>
+                            </div>
+                            <div class="nav-link" hidden id="purchaseInfoDiv2">
+                            
+                                <p id="newPurchaseInfo"></p>
+                            </div>
+                            <div class="nav-link" hidden id="purchaseInfoDiv">
+                            
+                                <p hidden id="justPurchasedTokenId"></p>
+                            </div>
+                            <div hidden id="sidebar_device_info_div">
+                                <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="true"
+                                    aria-controls="collapseLayouts1">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
+                                    My Device Info
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse show" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <div hidden class="sb-nav-link-icon" id="not_the_owner_in_menu" style="color: yellow;">Not the owner of this
+                                            NFT</div>
+                                        <div class="sb-nav-link-icon" id="openseaLink"></div>
+                                        <div class="sb-nav-link-icon" id="NFT_ID_NUMBER"></div>
+                                        <a target="_blank"
+                                            href="https://rinkeby.etherscan.io/address/0x489ccadb137521dcd87fc055c9567b8f62bac6fc">Contract</a>
+                                        <!-- <button id="load_new_data" class="btn btn-primary">Load New ID#</button> -->
+                            
+                                    </nav>
+                                </div>
+                            </div>
+                            <div id="sidebar_purchase_info_div">
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false"
+                                    aria-controls="collapseLayouts2" id="purchase_div_toggle">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
+                                    Purchase
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <div hidden class="nav-link" id="purchaseButtonDiv">
+                                            <button disabled onclick="purchaseDevice()" class="btn btn-sm btn-warning" id="purchaseButton_Button">Purchase
+                                                Device</button>
+                                            <br><br>
+                                            <a tabindex="0" class="btn p-1" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                title="Purchase a Cryptogotchi for 1,570 CPET Tokens. Tokens will withdraw automatically from connected wallet. Must have clicked approve button in dApp and have enough CPET tokens in your wallet for purchase."
+                                                data-content="">
+                                                <i class="fa fa-info-circle" style="color: white;"></i>
+                                            </a>
+                                        </div>
+                                        <div hidden class="nav-link" id="approveButtonNav">
+                                            <button onclick="approveLP_account()" class="btn btn-sm btn-warning" id="approve_button_main">Approve</button>
+                                            <a tabindex="0" class="btn p-1" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                title="Must be approved to purchase a Cryptogotchi NFT. Approval allows this contract to spend your CPET-T tokens. You only have to do this once per wallet."
+                                                data-content="">
+                                                <i class="fa fa-info-circle" style="color: white;"></i>
+                                            </a>
+                                        </div>
+                                        <div class="nav-link" id="buy_ppet_button_div">
+                                            <a target="_blank"
+                                                href="https://app.uniswap.org/#/swap?outputCurrency=0xdbfb96a79efFEA8Ce8D4abc8B177ab03fef2C450&inputCurrency=eth&use=V2">
+                                                <!-- <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div> -->
+                                                <button class="btn btn-sm btn-primary" id="buy_ppet_button">Buy/Sell CPET-T</button>
+                                            </a>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                        
+                            <!-- <div class="sb-sidenav-menu-heading">Main</div> -->
+                            <!-- <a class="nav-link" href="/">
+                                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                                Home
+                            </a> -->
+                            <!-- <a class="nav-link" target="_blank" href="/instructions">
+                                <div class="sb-nav-link-icon"><i class="fas fa-map"></i></div>
+                                Instructions
+                            </a> -->
+                            <!-- <div class="sb-sidenav-menu-heading">Purchase</div> -->
+                            
+                        <!-- <div class="nav-link" hidden id="purchaseInfoDiv">
+                            
+                            <p hidden id="justPurchasedTokenId"></p>
+                        </div>
+                        <div class="nav-link" hidden id="purchaseInfoDiv2">
+                            
+                            <p id="newPurchaseInfo"></p>
+                        </div> -->
+                        
+                        
+                    
+                    <!-- <div class="sb-sidenav-menu-heading">Interface</div> -->
+                    
+                    <!-- <div class="sb-sidenav-menu-heading">Wallet</div> -->
+                    <div hidden id="account_balances_menu_div">
+
+                        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="true" aria-controls="collapseLayouts3">
+                            <div class="sb-nav-link-icon"><i class="fas fa-wallet"></i></div>
+                            Account Balances
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                    </div>
+                    <div class="collapse show" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <!-- <div class="sb-nav-link-icon" id="openseaLink"></div>
+                                    <div class="sb-nav-link-icon" id="NFT_ID_NUMBER"></div> -->
+                                    <div class="sb-nav-link-icon" id="showAccount"></div>
+                                    <div class="sb-nav-link-icon" id="showBalance"></div>
+                                    <div class="sb-nav-link-icon" id="AccountBalance"></div>
+                                    <!-- <a href="https://rinkeby.etherscan.io/address/0xe159d642884388d21c8e9f86b48a9e0241777334">Contract</a> -->
+                                </nav>
+                            </div>
+                            <a class="nav-link" target="_blank" href="/instructions">
+                                <div class="sb-nav-link-icon"><i class="fas fa-map"></i></div>
+                                Instructions
+                            </a>
+                            <!-- <div class="sb-sidenav-menu-heading">NFT</div> -->
+                            
+                            <!-- <div class="sb-sidenav-menu-heading">Other</div> -->
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts4">
+                                <div class="sb-nav-link-icon"><i class="fas fa-link"></i></div>
+                                Links
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <div class="sb-nav-link-icon" id="openseaLink">
+                                        <a class="nav-link" href="https://discord.gg/eXpmPuCA7C" target="_blank">
+                                            <div class="sb-nav-link-icon"><i class="fab fa-discord"></i></div>
+                                            Discord
+                                        </a>
+                                        <a class="nav-link" href="https://t.me/CryptogotchiNFT" target="_blank">
+                                            <div class="sb-nav-link-icon"><i class="fab fa-telegram-plane"></i></div>
+                                            Telegram
+                                        </a>
+                                        <a class="nav-link" href="https://github.com/CryptogotchiNFT" target="_blank">
+                                            <div class="sb-nav-link-icon"><i class="fab fa-github"></i></div>
+                                            Github
+                                        </a>
+                                    </div>
+                                    <!-- <a href="https://rinkeby.etherscan.io/address/0xe159d642884388d21c8e9f86b48a9e0241777334">Contract</a> -->
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="sb-sidenav-footer">
+                        <div class="small">
+
+                        </div>
+                        
+                    </div> -->
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <!-- <h1 class="mt-4">Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol> -->
+                        <div class="row pt-2">
+                            <div class="col-md-6">
+                                <div hidden class="card bg-secondary text-white mb-2" id="error_message_div">
+                                    <div class="card-body text-center">
+                                        <code style="color: red; background-color: black; padding: 5px;" ><b id="error_message">CONNECT TO RINKEBY NETWORK</b></code>
+                                    </div>
+                                </div>
+                                <div hidden class="card bg-secondary text-white mb-2" id="error_message_div_ID">
+                                    <div class="card-body text-center">
+                                        <code style="color: red; background-color: black; padding: 5px;" ><b id="error_message_ID">NOT THE OWNER OF THIS NFT</b></code>
+                                    </div>
+                                </div>
+                                <div class="card bg-secondary text-white mb-2">
+                                    <div class="card-body text-center">
+                                        <img id="image" class="img-fluid rounded" src="./assets/images/Blobs2/states/egg.gif" alt="frogState">
+                                       
+                                    </div>
+                                    <!-- <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <p id="feed_transaction">&nbsp;</p>
+                                    </div> -->
+                                </div>
+                                
+                            </div>
+                            <!-- PLAY CARD -->
+                            <div class="col-md-6">
+                                <div class="row" id="feed_row">
+                                    <div class="col-12">
+                                        <div class="card bg-secondary text-white mb-2">
+                                            <div class="card-body text-center">
+                                                    <table class="table" style="color: white;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">Next Feed</th>
+                                                                <td id="dateOfNextWatering">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">Countdown</th>
+                                                                <td id="time">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">Feed Window</th>
+                                                                <td id="feed_window">&nbsp;</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div id="feed_div_buttons">
+                                                        <div id="feedButton">
+                                                            <button disabled id="feed_button" onclick="feedTheFrog()" class="btn btn-primary">Feed</button>
+                                                            <a tabindex="0" class="btn p-0" role="button" data-toggle="popover" data-placement="top"
+                                                                data-trigger="focus" title="Feed once every 24 hours and within the feed window to keep your pet alive. If your device requires a revival, 
+                                                                                                                                        you must send back all rewards earned from your current prestige. Purchase and redeem day passes to bypass this daily
+                                                                                                                                        requirement."
+                                                                data-content="">
+                                                                <i class="fa fa-info-circle" style="color: white;"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div hidden id="hatchButton">
+                                                            <button onclick="hatch()" class="btn btn-warning" id="hatch_button">Hatch</button>
+                                                            <a tabindex="0" class="btn p-0" role="button" data-toggle="popover" data-placement="top"
+                                                                data-trigger="focus"
+                                                                id="normal_hatching"
+                                                                title="Hatching sets a Cryptogotchis required daily feed time, choose wisely! If this is your first hatch a random color will be assigned to your pet. Chances; 5% yellow,10% blue,15% orange,30% green,40% Purple "
+                                                                data-content="">
+                                                                <i class="fa fa-info-circle" style="color: white;"></i>
+                                                            </a>
+                                                        
+                                                            <!-- <a tabindex="0" class="btn p-0" role="button" data-toggle="popover" data-placement="top"
+                                                                data-trigger="focus"
+                                                                id="initial_hatching"
+                                                                title="This is your initial hatching! Hatching sets your daily feeding time and set a random color. Chances; 5% yellow,10% blue,15% orange,30% green,40% Purple"
+                                                                data-content="">
+                                                                <i class="fa fa-info-circle" style="color: white;"></i>
+                                                            </a> -->
+                                                        </div>
+                                                        <div hidden id="resetButton">
+                                                            <button id="resetAmount" onclick="reset()" class="btn btn-primary"></button>
+                                                            <a tabindex="0" class="btn p-0" role="button" data-toggle="popover" data-placement="top"
+                                                                data-trigger="focus"
+                                                                title="Your device has died. You must withdraw all redeemable rewards to revive your pet and send back all CPET-T rewards earned from your current prestige. The required CPET-T will be removed from your wallet automatically on revival. Must have also clicked the approval button."
+                                                                data-content="">
+                                                                <i class="fa fa-info-circle" style="color: white;"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="play_row">
+                                    <div class="col-12">
+                                        <div class="card bg-secondary text-white mb-2">
+                                            <div class="card-body text-center">
+                                                <table class="table" style="color: white;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">Next Generation/Reward</th>
+                                                            <td id="strength">&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Next Reward</th>
+                                                            <td id="nextRewardSize">&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Next Prestige</th>
+                                                            <td id="generationsLeft">&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Current Prestige</th>
+                                                            <td id="currentPrestige">&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Next available Play time</th>
+                                                            <td id="strengthTime">&nbsp;</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div id="play_div_buttons">
+                                                    <div id="playButtonDiv">
+                                                        <button disabled onclick="playWithTheFrog()" class="btn btn-primary" id="playButton">Play</button>
+                                                        <a tabindex="0" class="btn p-0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                            title="Play with your pet 3 times to gain a generation and earn a CPET-T reward. Play once to increase your feed window by 1 hour." data-content="">
+                                                            <i class="fa fa-info-circle" style="color: white;"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div hidden id="approveButton" class="mt-2">
+                                                        <button onclick="approveLP_account()" class="btn btn-sm btn-warning">Approve</button>
+                                                        <a tabindex="0" class="btn p-0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                            title="Must be approved for pass purchases and device revival. Approval allows this contract to spend your CPET-T tokens. You only have to do this once per wallet."
+                                                            data-content="">
+                                                            <i class="fa fa-info-circle" style="color: white;"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div hidden id="prestigeButton">
+                                                        <button onclick="prestige()" class="btn btn-primary" id="prestige_button">Prestige</button>
+                                                        <a tabindex="0" class="btn p-0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                            title="In order to prestige, you must withdraw all redeemable rewards first. Performing a prestige will reset your
+                                                             device back to generation 1 and increase your prestige level by 1. Prestige is required to continue receiving 
+                                                             CPET-T rewards. Also resets required CPET-T tokens to send back for a revival back to 0."
+                                                            data-content="">
+                                                            <i class="fa fa-info-circle" style="color: white;"></i>
+                                                        </a>
+                                                        <a tabindex="0" data-html="true"  style="color: red !important;" class="btn p-0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                            title="WARNING: CHECK AND MAKE SURE YOU ARE 
+                                                             WITHIN ONE HOUR FEED WINDOW BECAUSE YOUR FEED WINDOW RESETS TO ONE HOUR ON PRESTIGE. YOUR DEVICE WILL DIE! SUGGESTION: FEED BEFORE PRESTIGING"
+                                                            data-content="test">
+                                                            <i class="fas fa-exclamation-triangle" style="color:red;"></i>
+                                                        </a>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row" id="pass_row">
+                                    <div class="col-12">
+                                        <div class="card bg-secondary text-white mb-1">
+                                            <div class="card-body text-center">
+                                                
+                                                <table class="table" style="color: white;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">Redeemable CPET-T Rewards</th>
+                                                            <td id="rewards">&nbsp;</td>
+                                                        </tr>
+                                                        
+                                                        <!-- <tr>
+                                                            <th scope="row">Users Wallet CPET-T Balance</th>
+                                                            <td id="tokenBalance">&nbsp;</td>
+                                                        </tr> -->
+                                                        <tr>
+                                                            <th scope="row">Redeemable Day Passes</th>
+                                                            <td id="freeDays">&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Pass Cost</th>
+                                                            <td>100 CPET-T/Day</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div id="redeem_div_buttons">
+
+                                                    <div>
+                                                        <button hidden id="rewardWithdrawButton" onclick="getTokenReward()" class="btn btn-sm btn-primary mb-2">
+                                                            Redeem CPET-T Rewards
+                                                        </button>
+                                                    </div>
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-md-6 col-xl-4 ">
+                                                            <div class="input-group mb-2">
+                                                                <div class="input-group-prepend">
+                                                                    <button onclick="purchase()" class="btn btn-sm btn-primary" id="purchaseButton" type="button">Purchase</button>
+                                                                </div>
+                                                                <input id="purchaseAmount" type="number" class="form-control form-control-sm" placeholder="# of days"
+                                                                    aria-label="" aria-describedby="basic-addon1">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-xl-4 ">
+                                                            <div class="input-group mb-2">
+                                                                <div class="input-group-prepend">
+                                                                    <button onclick="redeem()" class="btn btn-sm btn-primary" id="redeemButton" type="button">Redeem</button>
+                                                                </div>
+                                                                <input id="freeDaysNumber" type="number" class="form-control form-control-sm" placeholder="# of days"
+                                                                    aria-label="" aria-describedby="basic-addon1">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-dark text-white mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Cryptogotchi 2021</div>
+                            <div>
+                                <a href="https://discord.gg/eXpmPuCA7C" target="_blank">Discord</a>
+                                &middot;
+                                <a href="https://t.me/CryptogotchiNFT" target="_blank">Telegram</a>
+                                &middot;
+                                <a href="https://github.com/CryptogotchiNFT" target="_blank">Github</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <div id="feedLevel" hidden></div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="./../js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/8.0.2/bignumber.min.js"
+            integrity="sha512-7UzDjRNKHpQnkh1Wf1l6i/OPINS9P2DDzTwQNX79JxfbInCXGpgI1RPb3ZD+uTP3O5X7Ke4e0+cxt2TxV7n0qQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- <script src="./js/promise.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/node-fetch@2.6.1/browser.min.js"></script> -->
+        <script src="./../js/app3/connect.js"></script>
+        <script src="./../js/app3/contracts.js"></script>
+        <script src="./../js/app3/variables.js"></script>
+        <script src="./../js/app3/promisify.js"></script>
+        <script src="./../js/app3/web3_events.js"></script>
+        <script src="./../js/app3/network.js"></script>
+        <!-- <script src="./../../node_modules/node-fetch/lib/index.es.js"></script>
+        <script src="./../../node_modules/node-fetch/lib/index.js"></script>
+        <script src="./../../node_modules/node-fetch/lib/index.mjs"></script> -->
+        <!-- <script src="./../js/app3/do_something.js"></script> -->
+        <script src="./../js/app3/app3.js"></script>
+        <script src="./../js/app3/get_info.js"></script>
+        <script src="./../js/app3/get_images.js"></script>
+        <script src="./../js/app3/timers.js"></script>
+        <script src="./../js/app3/interactions.js"></script>
+        <script src="./../js/app3/events.js"></script>
+        <script>
+            
+            $(function () {
+                $('[data-toggle="popover"]').popover({
+                trigger: 'focus'
+                })
+            })
+
+        </script>
+        <script>
+            // const URL = '/test'
+            // $.ajax({
+            //         url: URL,
+            //         method: "GET",
+            //     }).then(function (response) {
+            //         console.log(response)
+            //     })
+        </script>
+    </body>
+</html>

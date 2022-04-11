@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Cryptogotchi Home</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="css/styles2.css" rel="stylesheet" type="text/css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.0/dist/web3.min.js"></script> -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
+        <link rel="icon" type="image/png" href="./assets/images/blobs/orange_normal.png" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZY3B5TW0H"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-4ZY3B5TW0H');
+        </script>
+    </head>
+    <body class="sb-nav-fixed bg-dark" id="body">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark justify-content-between">
+            <a href="/" class="rounded mr-3 ml-3" style="text-decoration: none;letter-spacing: 2px !important;">
+                <h4 style="font-family:Cyberverse;">
+                    <span style="color: #00ff00;">CRYPTO</span><span style="color: orange;">GOTCHI</span>
+                </h4>            
+            </a>
+            <button class="btn btn-link btn-lg order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        </nav>
+        <div id="layoutSidenav" >
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Home</div>
+                            <a class="nav-link" href="/device">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tablet"></i></i></div>
+                                Testnet dApp
+                            </a>
+                            <a style="color: yellow;" class="nav-link" href="/sale">
+                                <div class="sb-nav-link-icon"><i class="fas fa-ticket-alt"></i></div>
+                                Genesis Egg Sale
+                            </a>
+                            <a disabled class="nav-link">
+                                <div class="sb-nav-link-icon"><i class="fa fa-paperclip" aria-hidden="true"></i></div>
+                                Wiki (soon)
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Links</div>
+                            <a class="nav-link" href="https://discord.gg/eXpmPuCA7C" target="_blank">
+                                <div class="sb-nav-link-icon"><i class="fab fa-discord"></i></div>
+                                Discord
+                            </a>
+                            <a class="nav-link" href="https://t.me/CryptogotchiNFT" target="_blank">
+                                <div class="sb-nav-link-icon"><i class="fab fa-telegram-plane"></i></div>
+                                Telegram
+                            </a>
+                            <!-- <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <div class="sb-nav-link-icon" id="openseaLink"></div>
+                                    <a href="https://rinkeby.etherscan.io/address/0xe159d642884388d21c8e9f86b48a9e0241777334">Contract</a>
+                                </nav>
+                            </div> -->
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <div class="container col-xxl-10   bg-dark text-white text-center">
+                            <div class="row flex-sm-row-reverse align-items-center g-5 py-5">
+                                <div class="col-12 col-sm-4 justify-content-center">
+                                    <img src="../assets/images/27gotchis/27.png"  class="d-block mx-auto img-fluid rounded-3" alt="" loading="lazy">
+                                </div>
+                                <div class="col-12 col-sm-8 order-sm-1">
+                                    <h3 class="display-6 fw-bold lh-1 mb-3" style="font-family:Cyberverse;">Genesis Egg Sale is Live now!</h3>
+                                    <p class="lead">
+                                        <span style="color: yellow;">Each NFT represent a wallets claim to their pet's token number, type and day passes when the Cryptogotchi contract is
+                                        deployed. This is your ticket to mainnet. Keep it Warm!</span> 
+                                    </p>
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                        <a href="https://cryptogotchi.medium.com/cryptogotchi-genesis-egg-presale-16315e3e355d" target="_blank" class="btn btn-outline-primary btn-lg px-4"
+                                            role="button" aria-pressed="true">Medium</a>
+                                        <a href="/sale" class="btn btn-outline-warning btn-lg px-4"
+                                            role="button" aria-pressed="true">Enter Sale</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container col-xxl-10   bg-dark text-white text-center">
+                            <div class="row align-items-center g-5 py-5">
+                                <div class="col-12 col-md-4 justify-content-center">
+                                    <img src="../assets/images/27gotchis/25.png" class="d-block mx-auto img-fluid rounded-3" alt=""
+                                        loading="lazy">
+                                </div>
+                                <div class="col-12 col-md-8">
+                                    <h1 class="display-6 fw-bold lh-1 mb-3" style="font-family:Cyberverse;">Cryptogotchi NFT</h1>
+                                    <p class="lead">A living interactive virtual pet on the Polygon Blockchain. Feed and play with your own Cryptogotchi and earn QSM tokens.
+                                        Hatch your own egg soon!
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                            <a href="/device"
+                                                class="btn btn-outline-primary w-100 btn-lg px-4 mt-2" role="button" aria-pressed="true"
+                                            >Testnet dApp</a>
+                                            
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <a href="https://discord.gg/eXpmPuCA7C" target="_blank" class="btn btn-outline-warning w-100 btn-lg px-4 mt-2" role="button"
+                                                aria-pressed="true">
+                                                Join Discord
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container col-xxl-10   bg-dark text-white text-center">
+                            <div class="row flex-sm-row-reverse align-items-center g-5 py-5">
+                                <div class="col-12 col-md-4 div1 justify-content-center">
+                                    <img src="../assets/images/27gotchis/13.png" id="image" class="d-block mx-auto img-fluid rounded-3" alt="" loading="lazy">
+                                </div>
+                                <div class="col-md-8 section2 order-sm-1">
+                                    <h1 class="display-6 fw-bold lh-1 mb-3" style="font-family:Cyberverse;">Quantifiable Spacetime Meed (QSM)<span><h1>Meed for short</h6></span></h1>
+                                    <p class="lead">Meed ERC-20 tokens are used internally within the Cryptogotchi ecosystem for things like purchasing Day Passes and minting of new NFT's.
+                                    As a built in deflationary mechanism, any Meed tokens that get utilized are burnt and forever removed from circulating supply.
+                                    </p>
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                        <a href="javascript:void(0)" class="btn btn-outline-primary btn-lg px-4" role="button" aria-pressed="true">Trading coming soon!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container col-xxl-10   bg-dark text-white text-center">
+                            <div class="row  align-items-center g-5 py-5">
+                                <div class="col-12 col-sm-4">
+                                    <img src="../assets/images/27gotchis/2.png" class="d-block mx-auto img-fluid rounded-3" alt=""
+                                        loading="lazy">
+                                </div>
+                                <div class="col-12 col-sm-8">
+                                    <h1 class="display-5 fw-bold lh-1 mb-3" style="font-family:Cyberverse;">The Quantifiable Spacetime Cryptoverse</h1>
+                                    <h4 class=" fw-bold lh-1 mb-3">TBA</h4>
+                                    <p class="lead">
+                                        The upcoming online Blockchain Universe game where a user will be able to build, design and decorate their Cryptogotchi's home on its own decentralized plot of land with
+                                        rare NFT’s. Accessorize their Cryptogotchi with apparel, hats, glasses, shoes and more. Play games with others or battle
+                                        it out with an opponent for a prize!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="text-white">
+                        <div class="container p-0">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 pb-5">
+                                    <h1 class="text-center text-white" style="font-family:Cyberverse;">Roadmap</h1>
+                                    <div class="main-timeline text-sm-start">
+                                        <div class="timeline">
+                                            <div class="icon"></div>
+                                            <div class="date-content">
+                                                <div class="date-outer">
+                                                    <span class="date">
+                                                        <span class="month">2021</span>
+                                                        <span class="year">Q4</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-content">
+                                                <div class="description text-white">
+                                                    <p>&middot; Genesis Egg Presale</p>
+                                                    <p>&middot; Smart contract audit</p>
+                                                    <p>&middot; Cryptogotchi v1 & QSM Token</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline">
+                                            <div class="icon"></div>
+                                            <div class="date-content">
+                                                <div class="date-outer">
+                                                    <span class="date">
+                                                        <span class="month">2022</span>
+                                                        <span class="year">Q1</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-content">
+                                                <div class="description text-white">
+                                                    <p>&middot; Coingecko & CMC listing</p>
+                                                    <p>&middot; New dApp interface</p>
+                                                    <p>&middot; Website update</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline">
+                                            <div class="icon"></div>
+                                            <div class="date-content">
+                                                <div class="date-outer">
+                                                    <span class="date">
+                                                        <span class="month">2022</span>
+                                                        <span class="year">Q2</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-content">
+                                                <div class="description text-white">
+                                                    <p>&middot; Cryptogotchi v2</p>
+                                                    <p>&middot; NFT marketplace</p>
+                                                    <p>&middot; Exchange listings</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline">
+                                            <div class="icon"></div>
+                                            <div class="date-content">
+                                                <div class="date-outer">
+                                                    <span class="date">
+                                                        <span class="month">2022</span>
+                                                        <span class="year">Q3</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-content">
+                                                <div class="description text-white">
+                                                    <p>&middot; Cryptogotchi battle/card game</p>
+                                                    <p>&middot; Exchange listings</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 text-white border-dark rounded-3 text-center">
+                                    <h1 class="text-center text-white mb-4" style="font-family:Cyberverse;">Initial QSM Token Estimations</h1>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12">
+                                            <h6>Minted Token Liquidity</h6>
+                                            <p>9,200,000 QSM</p>
+                                            <code>devicesPerCycle(5,000) x <br>
+                                            costOfNFT(1,840 QSM)</code>
+                                            <hr>
+                                            <h6>Initial price per QSM Token</h6>
+                                            <p>.0000031 ETH</p>
+                                            <code>totalMaticFromPresale(28.5 ETH) / <br>
+                                            mintedTokenLiquidity(9,200,000 QSM)</code>
+                                            <hr>
+                                            <h6>Initial price per Cryptogotchi NFT</h6>
+                                            <p>.0057 ETH</p>
+                                            <code>initialPricePerToken(.0000031 ETH) x <br>
+                                            costPerNFT(1,840 QSM)</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="color: white;">
+                </main>
+                <footer class="py-4 bg-dark text-white mt-auto" >
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Cryptogotchi 2021</div>
+                            <div>
+                                <a href="https://discord.gg/eXpmPuCA7C" target="_blank">Discord</a>
+                                &middot;
+                                <a href="https://t.me/CryptogotchiNFT" target="_blank">Telegram</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <div id="feedLevel" hidden></div>
+        </div>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/8.0.2/bignumber.min.js"
+            integrity="sha512-7UzDjRNKHpQnkh1Wf1l6i/OPINS9P2DDzTwQNX79JxfbInCXGpgI1RPb3ZD+uTP3O5X7Ke4e0+cxt2TxV7n0qQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+       <script>
+            function loopOrangeGuy() {
+                $('#image3').attr("src", "./assets/images/blobs/orange_normal.png")
+                setTimeout(function () {
+                    $('#image3').attr("src", "./assets/images/blobs/orange_move.png")
+                    setTimeout(function () {
+                        $('#image3').attr("src", "./assets/images/blobs/orange_normal.png")
+                        loopOrangeGuy()
+                    }, 1000);
+                }, 5000);
+            }
+            loopOrangeGuy()
+            function loopEgg() {
+                $('#image4').attr("src", "./assets/images/egg/egg_normal.png")
+                setTimeout(function () {
+                    $('#image4').attr("src", "./assets/images/egg/egg_move.png")
+                    setTimeout(function () {
+                        $('#image4').attr("src", "./assets/images/egg/egg_normal.png")
+                        loopEgg()
+                    }, 100);
+                }, 5500);
+            }
+            loopEgg()
+        </script>
+    </body>
+</html>

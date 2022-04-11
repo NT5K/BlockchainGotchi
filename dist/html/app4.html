@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <!-- <meta http-equiv="Access-Control-Allow-Origin" content="*"> -->
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Cryptogotchi v1 Testnet</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> -->
+        
+        
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script> -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+        
+        <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+        <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.0/dist/web3.min.js"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <link rel="icon" type="image/png" href="./assets/images/blobs/orange_normal.png" />
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZY3B5TW0H"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-4ZY3B5TW0H');
+        </script>
+    </head>
+    <body class="sb-nav-fixed bg-dark" id="body">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark justify-content-between">
+            <a href="/" class="rounded mr-3 ml-3" style="text-decoration: none;letter-spacing: 2px !important;">
+                <h4 style="font-family:Cyberverse;" class="p-0">
+                    <span style="color: #00ff00;">CRYPTO</span><span style="color: orange;">GOTCHI</span>
+                </h4>
+            </a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-lg order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <!-- <div id="enableMeta">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="enableEthereumButton btn btn-sm btn-warning border border-danger mt-3" id="buttonmeta" type="button">
+                                            Load NFT Data
+                                        </button>
+                                    </div>
+                                    <input id="tokenId" type="number" class="form-control form-control-sm mt-3" placeholder="ID#" aria-label=""
+                                        aria-describedby="basic-addon1">
+                                </div>
+                                <button class="connectWithoutID btn btn-sm btn-warning border border-danger mt-3" id="buttonmeta2" type="button">
+                                    Connect without ID
+                                </button>
+                            </div>
+                            <div hidden id="load_new_data_div">
+                                <a class="nav-link" href="javascript:void(0)">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div>
+                                    <button id="load_new_data" class="btn btn-sm btn-primary">Load New ID#</button>
+                                </a>
+                            </div> -->
+                            
+                            <!-- <div class="nav-link" hidden id="purchaseInfoDiv2">
+                                <div>
+
+                                    <p id="newPurchaseInfo">&nbsp;</p>
+                                </div>
+                                <div>
+                                    
+                                    <p hidden id="justPurchasedTokenId">&nbsp;</p>
+                                </div>
+                            </div> -->
+                            <!-- <div class="nav-link" hidden id="purchaseInfoDiv">
+                            
+                            </div> -->
+                            <div hidden id="sidebar_device_info_div">
+                                <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="true"
+                                    aria-controls="collapseLayouts1">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
+                                    My Device Info
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse show" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <div hidden class="sb-nav-link-icon" id="not_the_owner_in_menu" style="color: yellow;">Not the owner of this
+                                            NFT</div>
+                                        <div class="sb-nav-link-icon" id="openseaLink"></div>
+                                        <div class="sb-nav-link-icon" id="NFT_ID_NUMBER"></div>
+                                        <!-- <a target="_blank"
+                                            href="https://rinkeby.etherscan.io/address/">Contract</a> -->
+                                        <!-- <a>Contract</a> -->
+                                        <!-- <button id="load_new_data" class="btn btn-primary">Load New ID#</button> -->
+                            
+                                    </nav>
+                                </div>
+                            </div>
+                            <div id="sidebar_purchase_info_div">
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false"
+                                    aria-controls="collapseLayouts2" id="purchase_div_toggle">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
+                                    Purchase
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <div class="nav-link" hidden id="purchaseInfoDiv2">
+                                            <div>
+                                                <p id="newPurchaseInfo">&nbsp;</p>
+                                                <p hidden id="justPurchasedTokenId">&nbsp;</p>
+                                            </div>
+                                        </div>
+                                        <div hidden class="nav-link" id="purchaseButtonDiv">
+                                            <button disabled onclick="purchaseDevice()" class="btn btn-sm btn-warning" id="purchaseButton_Button">
+                                                Purchase Device
+                                            </button>
+                                            <br>
+                                            <a tabindex="0" class="btn p-1" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                title="Purchase a Cryptogotchi for 3,630 QSM Tokens. Tokens will withdraw automatically from connected wallet. Must have clicked approve button in dApp and have enough QSM tokens in your wallet for purchase."
+                                                data-content="">
+                                                <i class="fa fa-info-circle" style="color: white;"></i>
+                                            </a>
+                                        </div>
+                                        <div hidden class="nav-link" id="approveButtonNav">
+                                            <button onclick="approveLP_account()" class="btn btn-sm btn-warning" id="approve_button_main">Approve</button>
+                                            <a tabindex="0" class="btn p-1" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                title="Must be approved to purchase a Cryptogotchi NFT. Approval allows this contract to spend your QSM-T tokens. You only have to do this once per wallet."
+                                                data-content="">
+                                                <i class="fa fa-info-circle" style="color: white;"></i>
+                                            </a>
+                                        </div>
+                                        <div class="nav-link" id="buy_ppet_button_div">
+                                            <a target="_blank"
+                                                href="https://app.uniswap.org/#/swap?outputCurrency=0xA8E9bcC828FADe96d757c8323846DAb9F8D987c8&inputCurrency=eth&use=V2">
+                                                <!-- <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div> -->
+                                                <button class="btn btn-sm btn-primary" id="buy_ppet_button">Buy/Sell QSM-T</button>
+                                            </a>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                        
+                            <!-- <div class="sb-sidenav-menu-heading">Main</div> -->
+                            <!-- <a class="nav-link" href="/">
+                                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                                Home
+                            </a> -->
+                            <!-- <a class="nav-link" target="_blank" href="/instructions">
+                                <div class="sb-nav-link-icon"><i class="fas fa-map"></i></div>
+                                Instructions
+                            </a> -->
+                            <!-- <div class="sb-sidenav-menu-heading">Purchase</div> -->
+                            
+                        <!-- <div class="nav-link" hidden id="purchaseInfoDiv">
+                            
+                            <p hidden id="justPurchasedTokenId"></p>
+                        </div>
+                        <div class="nav-link" hidden id="purchaseInfoDiv2">
+                            
+                            <p id="newPurchaseInfo"></p>
+                        </div> -->
+                        
+                        
+                    
+                    <!-- <div class="sb-sidenav-menu-heading">Interface</div> -->
+                    
+                    <!-- <div class="sb-sidenav-menu-heading">Wallet</div> -->
+                    <div id="account_balances_menu_div">
+
+                        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="true" aria-controls="collapseLayouts3">
+                            <div class="sb-nav-link-icon"><i class="fas fa-wallet"></i></div>
+                            Account Balances
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                    </div>
+                    <div class="collapse show" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <!-- <div class="sb-nav-link-icon" id="openseaLink"></div>
+                                    <div class="sb-nav-link-icon" id="NFT_ID_NUMBER"></div> -->
+                                    <!-- <div><a href="javascript:void(0)" onclick="refreshAccount()"><i class="fas fa-redo-alt"></i></a></div> -->
+                                    <div class="sb-nav-link-icon" id="showAccount"></div>
+                                    <div class="sb-nav-link-icon" id="showBalance"></div>
+                                    <div class="sb-nav-link-icon" id="AccountBalance"></div>
+                                    <!-- <a href="https://rinkeby.etherscan.io/address/0xe159d642884388d21c8e9f86b48a9e0241777334">Contract</a> -->
+                                </nav>
+                            </div>
+                            <a class="nav-link" href="/">
+                                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                                Home
+                            </a>
+                            <a class="nav-link" target="_blank" href="/instructions">
+                                <div class="sb-nav-link-icon"><i class="fas fa-map"></i></div>
+                                Instructions
+                            </a>
+                            <a style="color: yellow;" class="nav-link" href="/sale">
+                                <div class="sb-nav-link-icon"><i class="fas fa-ticket-alt"></i></div>
+                                Genesis Egg Sale
+                            </a>
+                            <!-- <div class="sb-sidenav-menu-heading">NFT</div> -->
+                            
+                            <!-- <div class="sb-sidenav-menu-heading">Other</div> -->
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts4">
+                                <div class="sb-nav-link-icon"><i class="fas fa-link"></i></div>
+                                Links
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <div class="sb-nav-link-icon" id="openseaLink">
+                                        <a class="nav-link" href="https://discord.gg/eXpmPuCA7C" target="_blank">
+                                            <div class="sb-nav-link-icon"><i class="fab fa-discord"></i></div>
+                                            Discord
+                                        </a>
+                                        <a class="nav-link" href="https://t.me/CryptogotchiNFT" target="_blank">
+                                            <div class="sb-nav-link-icon"><i class="fab fa-telegram-plane"></i></div>
+                                            Telegram
+                                        </a>
+                                        <a class="nav-link" href="https://github.com/CryptogotchiApp" target="_blank">
+                                            <div class="sb-nav-link-icon"><i class="fab fa-github"></i></div>
+                                            Github
+                                        </a>
+                                    </div>
+                                    <a href="https://rinkeby.etherscan.io/address/0x09fd59FDC82277002802F6C348a7188B48D160Ff">Contract</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="sb-sidenav-footer">
+                        <div class="small">
+
+                        </div>
+                        
+                    </div> -->
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <div class="row pt-2">
+                            <div class="col-md-6" id="">
+                                <div id="enableMeta" class="card bg-secondary rounded border-dark text-white mb-2">
+                                    <div class="card-body text-center p-1" id="">
+                                        <button class="enableEthereumButton btn btn-sm btn-warning border border-danger" id="buttonmeta"
+                                            type="button">
+                                            Connect Wallet
+                                        </button>
+                                    </div>
+                                </div>
+                                <div hidden class="accordion" id="token_numbers" >
+                                    <div  class="card bg-secondary rounded border-dark text-white mb-2">
+                                        <div id="headingOne3" data-toggle="collapse" data-target="#collapse_ID_numbers" style="background-color:#3E4145;">
+                                            <div class="card-title text-center" style="background-color: #3E4145 !important; cursor: pointer;">
+                                                <b class="ml-2 mb-0">My NFT ID Numbers</b>
+                                                <a data-toggle="collapse" class="float-right" data-target="#collapse_ID_numbers">
+                                                    <i class="fas mr-2"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div id="collapse_ID_numbers" class="card-body text-center collapse show">
+                                                <div class="card-body text-center" id="">
+                                                    <div hidden id="token_numbers_body"></div>
+                                                    <div>
+                                                        <span hidden id="id_states">
+                                                            <span><i class="fas fa-square mr-1" style="color: orange;"></i>Egg</span>
+                                                            <span><i class="fas fa-square mr-1" style="color: red;"></i>Feed</span>
+                                                            <span><i class="fas fa-square mr-1" style="color: green;"></i>Play</span>
+                                                            <span><i class="fas fa-square mr-1" style="color: black;"></i>Dead</span>
+                                                            <span><i class="fas fa-square mr-1 text-primary"></i>Nothing</span>
+                                                            <span id="refresh_button">
+                                                                <a  href="javascript:void(0)"><i class="fas fa-redo-alt"></i></a>
+                                                            </span>
+                                                            <span hidden id="refresh_countdown">
+                                                                <a ><i class="fas fa-redo-alt" style="color: grey;"></i></a>
+                                                            </span>
+                                                            <!-- <span>
+                                                                <button id="refresh_button" type="button" class="btn btn-sm btn-link" onclick="refreshAccount()">
+                                                                    <i class="fas fa-redo-alt"></i>
+                                                                </button>
+                                                            </span> -->
+
+                                                        </span>
+                                                    </div>
+                                                    <div hidden id="purchase_button_in_body">
+                                                        <p>You do not own any Cryptogotchi's! Purchase one for 3630 QSM Tokens.</p>
+                                                        <button onclick="purchaseDevice()" class="btn btn-sm btn-warning" id="purchaseButton_Button_in_body">
+                                                            Purchase Device
+                                                        </button>
+                                                    </div>
+                                                    <div hidden id="approveButton" class="mt-2">
+                                                        <p>Please Approve the Cryptogotchi Contract to spend your QSM Tokens. This is required for NFT and Day Pass purchases.</p>
+                                                        <button onclick="approveLP_account()" class="btn btn-sm btn-warning" id="approve_button_body">Approve</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div hidden class="card bg-secondary rounded border-dark text-white mb-2" id="error_message_div">
+                                    <div class="card-body text-center">
+                                        <code style="color: red; background-color: black; padding: 5px;" ><b id="error_message">CONNECT TO RINKEBY NETWORK</b></code>
+                                    </div>
+                                </div>
+                                <div hidden class="card bg-secondary rounded border-dark text-white mb-2" id="error_message_div_ID">
+                                    <div class="card-body text-center">
+                                        <code style="color: red; background-color: black; padding: 5px;" ><b id="error_message_ID">NOT THE OWNER OF THIS NFT</b></code>
+                                    </div>
+                                </div>
+                                
+                                <div hidden class="card bg-secondary rounded border-dark text-white mb-2" id="set_name_card">
+                                    <div class="card-body text-center pt-0" id="set_name">
+                                    </div>
+                                </div>
+                                <div hidden class="card bg-secondary rounded border-dark text-white mb-2" id="change_name_card">
+                                    <div class="card-body text-center pt-0" id="change_name">
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <button onclick="changeName()" class="btn btn-sm btn-primary" id="changeNameButton" type="button">Change</button>
+                                            </div>
+                                            <input id="newName" maxlength="16" type="text" class="form-control form-control-sm" placeholder="Max 16 characters including spaces" aria-label=""
+                                                aria-describedby="basic-addon1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card bg-secondary rounded border-dark text-white mb-2">
+                                    <div class="card-body text-center pt-0" id="">
+                                        <img id="image" class="img-fluid rounded mt-2 p-5" style="width:350px" src="./assets/images/27gotchis/0.png" alt="frogState">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <!-- PLAY CARD -->
+                                <div class="row" id="feed_row">
+                                    <div class="col-12">
+                                        <div class="accordion" id="batch_row_accordion1">
+                                            <div class="card bg-secondary rounded border-dark text-white mb-2">
+                                                <div id="headingOne3" data-toggle="collapse" data-target="#batch_row_accordion" style="background-color:#3E4145;"
+                                                    aria-expanded="false" class="collapsed">
+                                                    <div class="card-title text-center" style="background-color: #3E4145 !important; cursor: pointer;">
+                                                        <b class="ml-2 mb-0">Batch Functions</b>
+                                                        <a data-toggle="collapse" class="float-right collapsed" data-target="#batch_row_accordion"
+                                                            aria-expanded="false">
+                                                            <i class="fas mr-2"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div id="batch_row_accordion" class="card-body text-center collapse" style="">
+                                                        <div class="card-body text-center" id="">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <div id="batch_feed_div_button">
+                                                                            <p id="pets_to_feed"></p>
+                                                                            <button id="batch_feed_button" onclick="batchFeed()" class="btn btn-primary">Batch Feed</button>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div id="batch_play_div_button">
+                                                                            <p id="pets_to_play"></p>
+                                                                            <button onclick="batchPlay()" class="btn btn-primary" id="batch_play_button">Batch Play</button>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mt-5">
+                                                                    <div class="col-6">
+                                                                        
+                                                                        <div id="batch_prestige_div_buttons">
+                                                                            <p id="pets_to_prestige"></p>
+                                                                            <button id="batch_prestige_button" onclick="batchPrestiges()" class="btn btn-sm btn-primary mb-2">Batch Prestige</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        
+                                                                        <div id="batch_reward_div_buttons">
+                                                                            <p id="pets_to_get_reward"></p>
+                                                                            <button id="batch_reward_button" onclick="batchRewards()" class="btn btn-sm btn-primary mb-2">Batch Redeem QSM</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion" id="feed_row_accordion1">
+                                            <div class="card bg-secondary rounded border-dark text-white mb-2">
+                                                <div id="headingOne3" data-toggle="collapse" data-target="#feed_row_accordion"
+                                                    style="background-color:#3E4145;">
+                                                    <div class="card-title text-center" style="background-color: #3E4145 !important; cursor: pointer;">
+                                                        <b class="ml-2 mb-0">Feeding/Hatching</b>
+                                                        <a data-toggle="collapse" class="float-right" data-target="#feed_row_accordion">
+                                                            <i class="fas mr-2"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div id="feed_row_accordion" class="card-body text-center collapse show">
+                                                        <div class="card-body text-center" id="">
+                                                            <table class="table" style="color: white;">
+                                                                <tbody>
+                                                                    <tr id="date_of_next_watering_">
+                                                                        <th scope="row" class="w-50">Next Feed</th>
+                                                                        <td id="dateOfNextWatering" class="w-50">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr id="feed_countdown_">
+                                                                        <th scope="row" class="w-50">Countdown</th>
+                                                                        <td id="time" class="w-50">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr id="feed_window_">
+                                                                        <th scope="row" class="w-50">Feed Window</th>
+                                                                        <td id="feed_window" class="w-50">&nbsp;</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div hidden id="if_rewards_redeemable">
+                                                                <p>Must withdraw all redeemable QSM-T Rewards before you can revive your pet</p>
+                                                            </div>
+                                                            <div hidden id="if_needs_revival">
+                                                                <p>Please revive your pet</p>
+                                                            </div>
+                                                            <div hidden id="normal_hatch_info">
+                                                                <p>This is a normal hatch</p>
+                                                            </div>
+                                                            <div hidden id="initial_hatch_info" class="text-center">
+                                                                <p>This is an initial hatch! The type and color of your Cryptogotchi will be selected at random. Hatching sets your pets
+                                                                    daily required feeding time. Choose wisely!</p>
+                                                            </div>
+                                                            <div id="feed_div_buttons">
+                                                                <div id="feedButton">
+                                                                    <button disabled id="feed_button" onclick="feedTheFrog()" class="btn btn-primary">Feed</button>
+                                                                    <a tabindex="0" class="btn p-0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                                        title="Feed once every 24 hours and within the feed window to keep your pet alive. If your device requires a revival, 
+                                                                                                                            you must send back all rewards earned from your current prestige. Purchase and redeem day passes to bypass this daily
+                                                                                                                            requirement." data-content="">
+                                                                        <i class="fa fa-info-circle" style="color: white;"></i>
+                                                                    </a>
+                                                                </div>
+                                                                <div hidden id="hatchButton">
+                                                                    <button onclick="hatch()" class="btn btn-warning" id="hatch_button">Hatch</button>
+                                                                    <a tabindex="0" class="btn p-0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                                        id="normal_hatching"
+                                                                        title="Hatching sets a Cryptogotchis required daily feed time, choose wisely! 
+                                                                                                                            If this is your first hatch a random color will be assigned to your pet. 
+                                                                                                                            Chances; 5% yellow,10% blue,15% orange,30% green,40% Purple "
+                                                                        data-content="">
+                                                                        <i class="fa fa-info-circle" style="color: white;"></i>
+                                                                    </a>
+                                                                </div>
+                                                                <div hidden id="get_rewards_button_in_feed_div">
+                                                                    <button id="getRewardsButtonFeedDivButton" onclick="getTokenReward()" class="btn btn-sm btn-primary mb-2">
+                                                                    </button>
+                                                                </div>
+                                                                <div hidden id="resetButton">
+                                                                    <button id="resetAmount" onclick="reset()" class="btn btn-primary"></button>
+                                                                    <a tabindex="0" class="btn p-0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                                        title="Your device has died. You must withdraw all redeemable rewards to revive your pet and send back all QSM-T rewards earned from your current prestige. The required QSM-T will be removed from your wallet automatically on revival. Must have also clicked the approval button."
+                                                                        data-content="">
+                                                                        <i class="fa fa-info-circle" style="color: white;"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="play_row">
+                                    <div class="col-12">
+                                        <div class="accordion" id="play_row_accordion1">
+                                            <div class="card bg-secondary rounded border-dark text-white mb-2">
+                                                <div id="headingOne3" data-toggle="collapse" data-target="#play_row_accordion"
+                                                    style="background-color:#3E4145;">
+                                                    <div class="card-title text-center" style="background-color: #3E4145 !important; cursor: pointer;">
+                                                        <b class="ml-2 mb-0">Playing</b>
+                                                        <a data-toggle="collapse" class="float-right" data-target="#play_row_accordion">
+                                                            <i class="fas mr-2"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div id="play_row_accordion" class="card-body text-center collapse show">
+                                                        <div class="card-body text-center" id="">
+                                                            <table class="table" style="color: white;">
+                                                                <tbody class="">
+                                                                    <tr id="current_generation_">
+                                                                        <th scope="row" class="w-50">Current Generation</th>
+                                                                        <td id="currentGeneration" class="w-50">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr id="next_generation_">
+                                                                        <th scope="row" class="w-50">Next Generation</th>
+                                                                        <td id="nextGeneration" class="w-50">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr id="next_reward_">
+                                                                        <th scope="row" class="w-50">Next Reward</th>
+                                                                        <td id="nextRewardSize" class="w-50">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr id="next_prestige_">
+                                                                        <th scope="row">Next Prestige</th>
+                                                                        <td id="generationsLeft">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr id="current_prestige_" class="">
+                                                                        <th scope="row" class="w-50">Current Prestige</th>
+                                                                        <td id="currentPrestige" class="w-50">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr id="next_play_">
+                                                                        <th scope="row" class="w-50">Next Play</th>
+                                                                        <td id="nextAvailablePlay" class="w-50">&nbsp;</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div id="play_div_buttons">
+                                                                <div id="playButtonDiv">
+                                                                    <button disabled onclick="playWithTheFrog()" class="btn btn-primary" id="playButton">Play</button>
+                                                                    <a tabindex="0" class="btn p-0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                                        title="Each new Generation adds 1 play to the required amount to receive a QSM rewards. Every new Prestige adds 1 hour between plays."
+                                                                        data-content="">
+                                                                        <i class="fa fa-info-circle" style="color: white;"></i>
+                                                                    </a>
+                                                                </div>
+                                                                <div hidden id="prestigeButton">
+                                                                    <button onclick="prestige()" class="btn btn-warning" id="prestige_button">Prestige</button>
+                                                                    <a tabindex="0" class="btn p-0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus"
+                                                                        title="In order to prestige, you must withdraw all redeemable rewards first (located below). Performing a prestige will reset your
+                                                                                                                        pet back to generation 1 and increase your prestige level by 1 also increasing the time between plays by 1 hour. Prestige is required to continue receiving 
+                                                                                                                        QSM-T rewards. Also resets required QSM-T tokens to send back for a revival back to 0."
+                                                                        data-content="">
+                                                                        <i class="fa fa-info-circle" style="color: white;"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row" id="pass_row">
+                                    <div class="col-12">
+                                        <div class="accordion" id="redeem_row_accordion1">
+                                            <div class="card bg-secondary rounded border-dark text-white mb-2">
+                                                <div id="headingOne3" data-toggle="collapse" data-target="#redeem_row_accordion"
+                                                    style="background-color:#3E4145;" aria-expanded="false" class="collapsed">
+                                                    <div class="card-title text-center" style="background-color: #3E4145 !important; cursor: pointer;">
+                                                        <b class="ml-2 mb-0">Redeem</b>
+                                                        <a data-toggle="collapse" class="float-right collapsed" data-target="#redeem_row_accordion"
+                                                            aria-expanded="false">
+                                                            <i class="fas mr-2"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div id="redeem_row_accordion" class="card-body text-center collapse" style="">
+                                                        <div class="card-body text-center" id="">
+                                                            <table class="table" style="color: white;">
+                                                                <tbody>
+                                                                    <tr id="redeemable_rewards_">
+                                                                        <th scope="row" class="w-50">Redeemable Rewards</th>
+                                                                        <td id="rewards" class="w-50">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row" class="w-50">Redeemable Passes</th>
+                                                                        <td id="freeDays" class="w-50">&nbsp;</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="row" class="w-50">Pass Cost</th>
+                                                                        <td class="w-50">50 QSM/Day</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div id="redeem_div_buttons">
+                                                            
+                                                                <div>
+                                                                    <button hidden id="rewardWithdrawButton" onclick="getTokenReward()" class="btn btn-sm btn-primary mb-2">
+                                                                    </button>
+                                                                </div>
+                                                                <div class="row justify-content-center">
+                                                                    <div class="col-6 col-sm-6 ">
+                                                                        <div class="input-group mb-2">
+                                                                            <div class="input-group-prepend">
+                                                                                <button onclick="purchase()" class="btn btn-sm btn-primary" id="purchaseButton"
+                                                                                    type="button">Purchase</button>
+                                                                            </div>
+                                                                            <input id="purchaseAmount" type="number" class="form-control form-control-sm" placeholder="# of days"
+                                                                                aria-label="" aria-describedby="basic-addon1">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6 col-sm-6 ">
+                                                                        <div class="input-group mb-2">
+                                                                            <div class="input-group-prepend">
+                                                                                <button onclick="redeem()" class="btn btn-sm btn-primary" id="redeemButton"
+                                                                                    type="button">Redeem</button>
+                                                                            </div>
+                                                                            <input id="freeDaysNumber" type="number" class="form-control form-control-sm" placeholder="# of days"
+                                                                                aria-label="" aria-describedby="basic-addon1">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-dark text-white mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Cryptogotchi 2021</div>
+                            <div>
+                                <a href="https://discord.gg/eXpmPuCA7C" target="_blank">Discord</a>
+                                &middot;
+                                <a href="https://t.me/CryptogotchiNFT" target="_blank">Telegram</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <div id="feedLevel" hidden></div>
+        </div>
+        <script src="./../js/app3/easytimer.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <script src="./../js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/8.0.2/bignumber.min.js"
+            integrity="sha512-7UzDjRNKHpQnkh1Wf1l6i/OPINS9P2DDzTwQNX79JxfbInCXGpgI1RPb3ZD+uTP3O5X7Ke4e0+cxt2TxV7n0qQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- <script src="./js/promise.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="./../js/app3/connect.js"></script>
+        <script src="./../js/app3/abi.js"></script>
+        <script src="./../js/app3/contracts_app4.js"></script>
+        <script src="./../js/app3/promisify.js"></script>
+        <script src="./../js/app3/variables.js"></script>
+        <script src="./../js/app3/web3_events.js"></script>
+        <script src="./../js/app3/get_images.js"></script>
+        <script src="./../js/app3/interactions.js"></script>
+        <!-- <script src="./../js/app3/get_info.js"></script> -->
+        <!-- <script src="./../js/app3/network.js"></script> -->
+        <script src="./../js/app3/app4.js"></script>
+        <!-- <script src="./../js/app3/timers.js"></script> -->
+        <script src="./../js/app3/events.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/node-fetch@2.6.1/browser.min.js"></script> -->
+       <!-- <script src="./../../node_modules/node-fetch/lib/index.es.js"></script>
+        <script src="./../../node_modules/node-fetch/lib/index.js"></script>
+        <script src="./../../node_modules/node-fetch/lib/index.mjs"></script>  -->
+         <!-- <script src="./../js/app3/do_something.js"></script> -->
+        <script>
+            
+            $(function () {
+                $('[data-toggle="popover"]').popover({
+                trigger: 'focus'
+                })
+            })
+
+        </script>
+        <script>
+            // const URL = '/test'
+            // $.ajax({
+            //         url: URL,
+            //         method: "GET",
+            //     }).then(function (response) {
+            //         console.log(response)
+            //     })
+        </script>
+    </body>
+</html>
